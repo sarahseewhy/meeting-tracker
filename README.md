@@ -2,6 +2,8 @@
 
 ## Contents
 [Introduction](#introduction)
+[Context](#context)
+[Approach](#approach)
 
 ## Introduction
 
@@ -16,7 +18,7 @@ It seeks to answer the following questions:
 
 This is achieved by creating a standard meeting title format based on the [Karma Commit Convention](http://karma-runner.github.io/3.0/dev/git-commit-msg.html).
 
-### Context
+## Context
 
 Meetings can be pain but they don't have to be. I recently wrote about it [here](https://sarahseewhy.github.io/2019/02/01/reflection-week-5.html).
 
@@ -35,3 +37,13 @@ huddle(slackbot-spike): How to productionise?
 We're still working on allowed `type` values.
 
 Hopefully this will generate some interesting information and conversations.
+
+## Approach
+
+I'm following a few resources to get this spike working:
+
+- [Google Calendar API's Python Quickstart](https://developers.google.com/calendar/quickstart/python)
+- [Google Calendar's API Docs](https://developers.google.com/resources/api-libraries/documentation/calendar/v3/python/latest/)
+- [Google Calendar's API Client Library](https://developers.google.com/api-client-library/python/apis/calendar/v3)
+- [Parsing Google Calendar events with Python](https://qxf2.com/blog/google-calendar-python/)
+- 
