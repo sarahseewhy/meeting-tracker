@@ -48,4 +48,3 @@ I'm following a few resources to get this spike working:
 - [Google Calendar's API Docs](https://developers.google.com/resources/api-libraries/documentation/calendar/v3/python/latest/)
 - [Google Calendar's API Client Library](https://developers.google.com/api-client-library/python/apis/calendar/v3)
 - [Parsing Google Calendar events with Python](https://qxf2.com/blog/google-calendar-python/)
-- 
