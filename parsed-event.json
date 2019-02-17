@@ -1,0 +1,45 @@
+{
+  "kind": "calendar#event",
+  "etag": "3100496978008000'",
+  "id": "2crojv2ggqgvder5mevv5o02kc_20190215T170000Z", 
+  "status": "confirmed", 
+  "htmlLink": "https://www.google.com/calendar/event?eid=MmNyb2p2MmdncWd2ZGVyNW1ldnY1bzAya2NfMjAxOTAyMTVUMTcwMDAwWiBtZWV0aW5nLnRyYWNrZXIuc3Bpa2VAbQ", 
+  "created": "2019-02-07T20:48:25.000Z", 
+  "updated": "2019-02-15T16:34:49.004Z", 
+  "summary": {
+    "type": "1-1",
+    "scope": "feedback",
+    "description": "discuss meeting project"
+  },
+  "creator": {
+    "email": "meeting.tracker.spike@gmail.com", 
+    "self": true
+  }, 
+  "organizer": {
+    "email": "meeting.tracker.spike@gmail.com", 
+    "self": true
+  }, 
+  "start": {
+    "dateTime": "2019-02-15T17:00:00Z", 
+    "timeZone": "Europe/London"
+  },
+  "end": {
+    "dateTime": "2019-02-15T17:30:00Z", 
+    "timeZone": "Europe/London"
+  }, 
+  "recurringEventId": "2crojv2ggqgvder5mevv5o02kc", 
+  "originalStartTime": {
+    "dateTime": "2019-02-15T17:00:00Z", 
+    "timeZone": "Europe/London"
+  }, 
+  "iCalUID": "2crojv2ggqgvder5mevv5o02kc@google.com", 
+  "sequence": 1, 
+  "extendedProperties": {
+    "private": {
+      "everyoneDeclinedDismissed": "-1"
+    }
+  }, 
+  "reminders": {
+    "useDefault": true
+  }
+}
