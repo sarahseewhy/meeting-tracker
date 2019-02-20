@@ -14,24 +14,21 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 
 def main():
-    past_week = 1
+    in_number_of_weeks = 1
     calendar = build('calendar', 'v3', credentials=authorized_credentials())
-    calendar_items = retrieve_calendar_items_from(calendar, for_time_frame_in(past_week))
-    events = calendar_items.get('items', [])
-    event_types = extract_type_from(events)
+    calendar_items = retrieve_calendar_items_from(calendar, for_time_range(in_number_of_weeks))
+    event_types = extract_type_from(calendar_items.get('items', []))
 
-    output = collate_type_and_frequency_from(event_types)
-
-    display(output, past_week)
+    display(type_and_frequency_from(event_types), in_number_of_weeks)
 
 
-def display(output, past_week):
-    time_frame = datetime.today() - relativedelta(weeks=past_week)
-    print('Team events since %s' % time_frame.strftime("%B %d, %Y"))
+def display(output, number_of_weeks):
+    date = datetime.today() - relativedelta(weeks=number_of_weeks)
+    print('Team events since %s' % date.strftime("%B %d, %Y"))
     print(output)
 
 
-def collate_type_and_frequency_from(event_types):
+def type_and_frequency_from(event_types):
     types = Counter(event_types).keys()
     frequency = Counter(event_types).values()
     return dict(zip(types, frequency))
@@ -53,22 +50,15 @@ def extract_type_from(events):
 
 
 def retrieve_calendar_items_from(service, time_frame):
-    time_min = time_frame.get("min")
-    time_max = time_frame.get("max")
-    events_result = service.events().list(calendarId='primary', timeMin=time_min, timeMax=time_max,
-                                          maxResults=50, singleEvents=True,
-                                          orderBy='startTime').execute()
-    return events_result
+    return service.events().list(calendarId='primary', timeMin=time_frame.get("min"), timeMax=time_frame.get("max"),
+                                 maxResults=50, singleEvents=True, orderBy='startTime').execute()
 
 
-def for_time_frame_in(number_of_weeks):
-    week_ago = calculate_weeks_ago(number_of_weeks)
-    time_max = datetime.today().isoformat('T') + "Z"
-    time_min = week_ago.isoformat('T') + "Z"
-
+def for_time_range(number_of_weeks):
+    weeks_ago = calculate_weeks_ago(number_of_weeks)
     time_frame = {
-        "min": time_min,
-        "max": time_max
+        "min": weeks_ago.isoformat('T') + "Z",
+        "max": datetime.today().isoformat('T') + "Z"
     }
     return time_frame
 
