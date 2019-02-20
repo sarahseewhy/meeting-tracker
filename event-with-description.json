@@ -1,0 +1,42 @@
+{
+  "kind": "calendar#event", 
+  "etag": "3101309216810000", 
+  "id": "524samjm5a0lvmqb3rdaa9b5le_20190220T090000Z", 
+  "status": "confirmed", 
+  "htmlLink": "https://www.google.com/calendar/event?eid=NTI0c2Ftam01YTBsdm1xYjNyZGFhOWI1bGVfMjAxOTAyMjBUMDkwMDAwWiBtZWV0aW5nLnRyYWNrZXIuc3Bpa2VAbQ", 
+  "created": "2019-02-07T20:47:27.000Z", 
+  "updated": "2019-02-20T09:23:28.405Z", 
+  "summary": "meet(graphite): Develop SLIs", 
+  "description": "Agenda:\n\n1. Foo\n2. Bar\n\nGoal: Do stuff\n\nContext: This huddle came about because of reasons", 
+  "creator": {
+    "email": "meeting.tracker.spike@gmail.com", 
+    "self": true
+  }, 
+  "organizer": {
+    "email": "meeting.tracker.spike@gmail.com", 
+    "self": true
+  }, 
+  "start": {
+    "dateTime": "2019-02-20T09:00:00Z", 
+    "timeZone": "Europe/London"
+  }, 
+  "end": {
+    "dateTime": "2019-02-20T10:00:00Z", 
+    "timeZone": "Europe/London"
+  }, 
+  "recurringEventId": "524samjm5a0lvmqb3rdaa9b5le", 
+  "originalStartTime": {
+    "dateTime": "2019-02-20T09:00:00Z", 
+    "timeZone": "Europe/London"
+  }, 
+  "iCalUID": "524samjm5a0lvmqb3rdaa9b5le@google.com", 
+  "sequence": 1, 
+  "extendedProperties": {
+    "private": {
+      "everyoneDeclinedDismissed": "-1"
+    }
+  }, 
+  "reminders": {
+    "useDefault": true
+  }
+}
