@@ -14,25 +14,24 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 
 def main():
-
-    credentials = configure_app_authorization()
-    calendar = build('calendar', 'v3', credentials=credentials)
-    time_max, time_min, week_ago = calculate_timeframe()
-    calendar_items = retrieve_calendar_items_from(calendar, time_max, time_min)
+    past_week = 1
+    calendar = build('calendar', 'v3', credentials=authorized_credentials())
+    calendar_items = retrieve_calendar_items_from(calendar, for_time_frame_in(past_week))
     events = calendar_items.get('items', [])
     event_types = extract_type_from(events)
 
-    output = generate_output(event_types)
+    output = collate_type_and_frequency_from(event_types)
 
-    display_output(output, week_ago)
+    display(output, past_week)
 
 
-def display_output(output, week_ago):
-    print('Team events since %s' % week_ago.date())
+def display(output, past_week):
+    time_frame = datetime.today() - relativedelta(weeks=past_week)
+    print('Team events since %s' % time_frame.strftime("%B %d, %Y"))
     print(output)
 
 
-def generate_output(event_types):
+def collate_type_and_frequency_from(event_types):
     types = Counter(event_types).keys()
     frequency = Counter(event_types).values()
     return dict(zip(types, frequency))
@@ -53,22 +52,32 @@ def extract_type_from(events):
     return event_types
 
 
-def retrieve_calendar_items_from(service, time_max, time_min):
+def retrieve_calendar_items_from(service, time_frame):
+    time_min = time_frame.get("min")
+    time_max = time_frame.get("max")
     events_result = service.events().list(calendarId='primary', timeMin=time_min, timeMax=time_max,
                                           maxResults=50, singleEvents=True,
                                           orderBy='startTime').execute()
     return events_result
 
 
-def calculate_timeframe():
-    today = datetime.today()
-    week_ago = today - relativedelta(weeks=1)
-    time_max = today.isoformat('T') + "Z"
+def for_time_frame_in(number_of_weeks):
+    week_ago = calculate_weeks_ago(number_of_weeks)
+    time_max = datetime.today().isoformat('T') + "Z"
     time_min = week_ago.isoformat('T') + "Z"
-    return time_max, time_min, week_ago
+
+    time_frame = {
+        "min": time_min,
+        "max": time_max
+    }
+    return time_frame
 
 
-def configure_app_authorization():
+def calculate_weeks_ago(number_of_weeks):
+    return datetime.today() - relativedelta(weeks=number_of_weeks)
+
+
+def authorized_credentials():
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
