@@ -50,6 +50,11 @@ def extract_types_from(events):
     return event_types
 
 
+def extract_event_type_from(summary):
+    pattern = "^.*(?=(\())"
+    return re.match(re.compile(pattern), summary).group(0)
+
+
 def retrieve_calendar_items_from(service, time_frame):
     return service.events().list(calendarId='primary', timeMin=time_frame.get("min"), timeMax=time_frame.get("max"),
                                  maxResults=50, singleEvents=True, orderBy='startTime').execute()
@@ -94,11 +99,6 @@ def load_token():
         with open('token.pickle', 'rb') as token:
             credentials = pickle.load(token)
     return credentials
-
-
-def extract_event_type_from(summary):
-    pattern = "^.*(?=(\())"
-    return re.match(re.compile(pattern), summary).group(0)
 
 
 if __name__ == '__main__':
