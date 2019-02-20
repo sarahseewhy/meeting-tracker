@@ -1,5 +1,14 @@
 {
-  "event": {
-    "type": ""
-  }
+  "events": [
+    {
+      "event": {
+        "type": "some-type"
+      }
+    },
+    {
+      "event": {
+        "type": "some-type"
+      }
+    }
+  ]
 }
