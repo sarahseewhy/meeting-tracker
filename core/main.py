@@ -39,11 +39,11 @@ def main():
 
     today = datetime.today()
     week_ago = today - relativedelta(weeks=1)
-    tmax = today.isoformat('T') + "Z"
-    tmin = week_ago.isoformat('T') + "Z"
+    time_max = today.isoformat('T') + "Z"
+    time_min = week_ago.isoformat('T') + "Z"
 
     # Call the Calendar API
-    events_result = service.events().list(calendarId='primary', timeMin=tmin, timeMax=tmax,
+    events_result = service.events().list(calendarId='primary', timeMin=time_min, timeMax=time_max,
                                           maxResults=50, singleEvents=True,
                                           orderBy='startTime').execute()
     events = events_result.get('items', [])
