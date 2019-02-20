@@ -2,7 +2,6 @@ from __future__ import print_function
 import datetime
 import pickle
 import os.path
-import json
 import re
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -37,34 +36,33 @@ def main():
 
     service = build('calendar', 'v3', credentials=creds)
 
-    # Call the Calendar API
     now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
     print('Getting the upcoming 10 events')
+
+    # Call the Calendar API
     events_result = service.events().list(calendarId='primary', timeMin=now,
-                                          maxResults=1, singleEvents=True,
+                                          maxResults=10, singleEvents=True,
                                           orderBy='startTime').execute()
     events = events_result.get('items', [])
 
     if not events:
         print('No upcoming events found.')
     for event in events:
-        event_summary = event["summary"]
-        print(event_summary)
 
-        event_type = extract_event_type(event_summary)
+        # retrieve the summary, currently the only thing I'm interested in
+        summary = event["summary"]
 
-        data = {}
-        data['summary'] = {
-            "type": event_type,
-        }
-        json_data = json.dumps(data)
-        print(json_data)
+        # extract the event from the summary
+        event_type = extract_event_type_from(summary)
+
+        # output event types from the given time period
+        print(event_type)
 
 
-def extract_event_type(event_summary):
-    type_pattern = "^.*(?=(\())"
-    re.compile(type_pattern)
-    event_type = re.match(type_pattern, event_summary).group(0)
+def extract_event_type_from(summary):
+    pattern = "^.*(?=(\())"
+    re.compile(pattern)
+    event_type = re.match(pattern, summary).group(0)
     return event_type
 
 
