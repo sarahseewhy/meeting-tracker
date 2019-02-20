@@ -22,7 +22,9 @@ This is achieved by creating a standard meeting title format based on the [Karma
 
 ## Build
 
-You will not be able to build this project due to credential authorization and configuration.
+This project is not yet in a buildable stage. 
+
+If you clone the project you won't be able to build it due to credential authorization and configuration.
 
 I recommend following the tutorials I mention in my [Approach](#approach) section.
 
