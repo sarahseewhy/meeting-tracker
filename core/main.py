@@ -11,22 +11,21 @@ from google.auth.transport.requests import Request
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+number_of_weeks = 1
 
 
 def main():
-    number_of_weeks = 1
 
     calendar = build('calendar', 'v3', credentials=authorized_credentials())
     calendar_items = retrieve_calendar_items_from(calendar, for_time_range_in(number_of_weeks))
     event_types = extract_types_from(calendar_items.get('items', []))
 
-    display(collated_event_types_and_frequency_from(event_types), number_of_weeks)
+    display(collated_event_types_and_frequency_from(event_types))
 
 
-def display(output, number_of_weeks):
-    date = datetime.today() - relativedelta(weeks=number_of_weeks)
-    print('Team events since %s' % date.strftime("%B %d, %Y"))
-    print(output)
+def display(types_and_frequencies):
+    print('Team events since %s' % (datetime.today() - relativedelta(weeks=number_of_weeks)).strftime("%B %d, %Y"))
+    print(types_and_frequencies)
 
 
 def collated_event_types_and_frequency_from(event_types):
