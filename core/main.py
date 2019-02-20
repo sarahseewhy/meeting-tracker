@@ -55,16 +55,12 @@ def retrieve_calendar_items_from(service, time_frame):
 
 
 def for_time_range(number_of_weeks):
-    weeks_ago = calculate_weeks_ago(number_of_weeks)
+    weeks_ago = datetime.today() - relativedelta(weeks=number_of_weeks)
     time_frame = {
         "min": weeks_ago.isoformat('T') + "Z",
         "max": datetime.today().isoformat('T') + "Z"
     }
     return time_frame
-
-
-def calculate_weeks_ago(number_of_weeks):
-    return datetime.today() - relativedelta(weeks=number_of_weeks)
 
 
 def authorized_credentials():
