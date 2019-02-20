@@ -4,6 +4,7 @@ import os.path
 import re
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from collections import Counter
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -27,7 +28,7 @@ def main():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('/Users/sarah.young/code/play/meeting-tracker/env/credentials.json', SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file('env/credentials.json', SCOPES)
 
             # Tutorial says to use flow.run_local_server() but this also works.
             creds = flow.run_console()
@@ -48,18 +49,26 @@ def main():
                                           orderBy='startTime').execute()
     events = events_result.get('items', [])
 
+    event_types = []
+
     if not events:
         print('No upcoming events found.')
     for event in events:
-
         # retrieve the summary, currently the only thing I'm interested in
         summary = event["summary"]
 
         # extract the event from the summary
         event_type = extract_event_type_from(summary)
 
+        # add types to array of types
+        event_types.append(event_type)
         # output event types from the given time period
-        print(event_type)
+
+    types = Counter(event_types).keys()  # equals to list(set(words))
+    frequency = Counter(event_types).values()  # counts the elements' frequency
+
+    print('Team events since %s' % week_ago.date())
+    print(dict(zip(types, frequency)))
 
 
 def extract_event_type_from(summary):
