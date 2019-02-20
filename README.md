@@ -1,13 +1,10 @@
 # meeting-tracker
 
 ## Contents
-[Introduction](#introduction)
-
-[Build](#build)
-
-[Context](#context)
-
-[Approach](#approach)
+- [Introduction](#introduction)
+- [Build](#build)
+- [Context](#context)
+- [Approach](#approach)
 
 
 ## Introduction
