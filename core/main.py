@@ -17,7 +17,7 @@ number_of_weeks = 1
 def main():
 
     calendar = build('calendar', 'v3', credentials=authorized_credentials())
-    calendar_items = retrieve_calendar_items_from(calendar, for_time_range_in(number_of_weeks))
+    calendar_items = retrieve_calendar_items_from(calendar, for_time_range())
     event_types = extract_types_from(calendar_items.get('items', []))
 
     display(collated_event_types_and_frequency_from(event_types))
@@ -59,7 +59,7 @@ def retrieve_calendar_items_from(service, time_frame):
                                  maxResults=50, singleEvents=True, orderBy='startTime').execute()
 
 
-def for_time_range_in(number_of_weeks):
+def for_time_range():
     weeks_ago = datetime.today() - relativedelta(weeks=number_of_weeks)
     time_frame = {
         "min": weeks_ago.isoformat('T') + "Z",
