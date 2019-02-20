@@ -14,12 +14,13 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 
 def main():
-    in_number_of_weeks = 1
-    calendar = build('calendar', 'v3', credentials=authorized_credentials())
-    calendar_items = retrieve_calendar_items_from(calendar, for_time_range(in_number_of_weeks))
-    event_types = extract_type_from(calendar_items.get('items', []))
+    number_of_weeks = 1
 
-    display(type_and_frequency_from(event_types), in_number_of_weeks)
+    calendar = build('calendar', 'v3', credentials=authorized_credentials())
+    calendar_items = retrieve_calendar_items_from(calendar, for_time_range_in(number_of_weeks))
+    event_types = extract_types_from(calendar_items.get('items', []))
+
+    display(collated_event_types_and_frequency_from(event_types), number_of_weeks)
 
 
 def display(output, number_of_weeks):
@@ -28,13 +29,13 @@ def display(output, number_of_weeks):
     print(output)
 
 
-def type_and_frequency_from(event_types):
+def collated_event_types_and_frequency_from(event_types):
     types = Counter(event_types).keys()
     frequency = Counter(event_types).values()
     return dict(zip(types, frequency))
 
 
-def extract_type_from(events):
+def extract_types_from(events):
     event_types = []
     if not events:
         print('No upcoming events found.')
@@ -54,7 +55,7 @@ def retrieve_calendar_items_from(service, time_frame):
                                  maxResults=50, singleEvents=True, orderBy='startTime').execute()
 
 
-def for_time_range(number_of_weeks):
+def for_time_range_in(number_of_weeks):
     weeks_ago = datetime.today() - relativedelta(weeks=number_of_weeks)
     time_frame = {
         "min": weeks_ago.isoformat('T') + "Z",
@@ -84,9 +85,7 @@ def save_credentials(credentials, token):
 
 
 def authorize_credentials():
-    flow = InstalledAppFlow.from_client_secrets_file('env/credentials.json', SCOPES)
-    credentials = flow.run_console()
-    return credentials
+    return InstalledAppFlow.from_client_secrets_file('env/credentials.json', SCOPES).run_console()
 
 
 def load_token():
@@ -99,9 +98,7 @@ def load_token():
 
 def extract_event_type_from(summary):
     pattern = "^.*(?=(\())"
-    re.compile(pattern)
-    event_type = re.match(pattern, summary).group(0)
-    return event_type
+    return re.match(re.compile(pattern), summary).group(0)
 
 
 if __name__ == '__main__':
