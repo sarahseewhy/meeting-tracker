@@ -3,9 +3,12 @@
 ## Contents
 [Introduction](#introduction)
 
+[Build](#build)
+
 [Context](#context)
 
 [Approach](#approach)
+
 
 ## Introduction
 
@@ -19,6 +22,14 @@ It seeks to answer the following questions:
 * How long do meetings last?
 
 This is achieved by creating a standard meeting title format based on the [Karma Commit Convention](http://karma-runner.github.io/3.0/dev/git-commit-msg.html).
+
+## Build
+
+You will not be able to build this project due to credential authorization and configuration.
+
+I recommend following the tutorials I mention in my [Approach](#approach) section.
+
+Watch this space for updates.
 
 ## Context
 
