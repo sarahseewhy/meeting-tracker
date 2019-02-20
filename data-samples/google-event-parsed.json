@@ -11,6 +11,7 @@
     "scope": "feedback",
     "description": "discuss meeting project"
   },
+  "description": "Agenda:\n\n1. Foo\n2. Bar\n\nGoal: Do stuff\n\nContext: This huddle came about because of reasons",
   "creator": {
     "email": "meeting.tracker.spike@gmail.com", 
     "self": true
