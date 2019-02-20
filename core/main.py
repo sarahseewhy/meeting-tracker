@@ -1,8 +1,9 @@
 from __future__ import print_function
-import datetime
 import pickle
 import os.path
 import re
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -36,12 +37,14 @@ def main():
 
     service = build('calendar', 'v3', credentials=creds)
 
-    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-    print('Getting the upcoming 10 events')
+    today = datetime.today()
+    week_ago = today - relativedelta(weeks=1)
+    tmax = today.isoformat('T') + "Z"
+    tmin = week_ago.isoformat('T') + "Z"
 
     # Call the Calendar API
-    events_result = service.events().list(calendarId='primary', timeMin=now,
-                                          maxResults=10, singleEvents=True,
+    events_result = service.events().list(calendarId='primary', timeMin=tmin, timeMax=tmax,
+                                          maxResults=50, singleEvents=True,
                                           orderBy='startTime').execute()
     events = events_result.get('items', [])
 
